@@ -2,14 +2,27 @@ import React, { Component } from 'react';
 import TodoItem from './TodoItem';
 
 export default class TodoList extends Component {
+  renderBody = (items) => {
+    console.log(items, 'ite');
+    let AllItems = items.map((item, idx) => {
+      return (
+        <React.Fragment>
+          <TodoItem
+            key={`${item.id}-${idx}`}
+            title={item.title}
+            handleDelete={() => this.props.handleDelete(item.id)}
+            handleEdit={() => this.props.handleEdit(item.id)}
+            handleAddSubtask={() => this.props.handleAddSubtask(item.id)}
+          />
+        </React.Fragment>
+      );
+    });
+    return AllItems;
+  };
+
   render() {
-    const {
-      items,
-      clearList,
-      handleDelete,
-      handleEdit,
-      handleAddSubtask,
-    } = this.props;
+    const { items, clearList } = this.props;
+
     return (
       <React.Fragment>
         <table className='table table-bordered col-md-12 mx-auto table-striped table-hover mt-5'>
@@ -31,17 +44,8 @@ export default class TodoList extends Component {
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => {
-              return (
-                <TodoItem
-                  key={item.id}
-                  title={item.title}
-                  handleDelete={() => handleDelete(item.id)}
-                  handleEdit={() => handleEdit(item.id)}
-                  handleAddSubtask={() => handleAddSubtask(item.id)}
-                />
-              );
-            })}
+            {this.renderBody(items)}
+
             {items.length !== 0 && (
               <tr>
                 <td colSpan='4' className='text-right'>

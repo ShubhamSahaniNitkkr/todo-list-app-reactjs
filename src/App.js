@@ -10,6 +10,9 @@ class App extends Component {
     id: uuid(),
     item: '',
     editItem: false,
+    addSubtask: false,
+    parentItem: '',
+    parentId: '',
   };
 
   componentDidMount() {
@@ -18,6 +21,7 @@ class App extends Component {
       this.setState({
         items: JSON.parse(items),
       });
+      console.log(JSON.parse(items));
     }
   }
 
@@ -27,16 +31,40 @@ class App extends Component {
     });
   };
 
+  handleAddSubtask = (id) => {
+    const selectedItems = this.state.items.find((item) => item.id === id);
+
+    this.setState({
+      addSubtask: true,
+      parentItem: selectedItems.title,
+      parentId: id,
+    });
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
+    if (this.state.item === '') return false;
+    let newItem = {},
+      updatedItem;
 
-    const newItem = {
-      id: this.state.id,
-      title: this.state.item,
-      subtasks: [],
-    };
-
-    let updatedItem = [...this.state.items, newItem];
+    if (this.state.addSubtask) {
+      newItem = this.state.items.find(
+        (item) => item.id === this.state.parentId
+      );
+      newItem.subtasks = {
+        id: uuid(),
+        title: this.state.item,
+        subtasks: [],
+      };
+      updatedItem = [...this.state.items];
+    } else {
+      newItem = {
+        id: this.state.id,
+        title: this.state.item,
+        subtasks: [],
+      };
+      updatedItem = [...this.state.items, newItem];
+    }
 
     localStorage.setItem('todo-items', JSON.stringify(updatedItem));
 
@@ -51,7 +79,14 @@ class App extends Component {
   clearList = () => {
     this.setState({
       items: [],
+      id: uuid(),
+      item: '',
+      editItem: false,
+      addSubtask: false,
+      parentItem: '',
+      parentId: '',
     });
+    localStorage.setItem('todo-items', JSON.stringify([]));
   };
 
   handleDelete = (id) => {
@@ -63,19 +98,6 @@ class App extends Component {
   };
 
   handleEdit = (id) => {
-    const filteredItems = this.state.items.filter((item) => item.id !== id);
-
-    const selectedItems = this.state.items.find((item) => item.id === id);
-
-    this.setState({
-      items: filteredItems,
-      item: selectedItems.title,
-      editItem: true,
-      id: id,
-    });
-  };
-
-  handleAddSubtask = (id) => {
     const filteredItems = this.state.items.filter((item) => item.id !== id);
 
     const selectedItems = this.state.items.find((item) => item.id === id);
@@ -101,6 +123,8 @@ class App extends Component {
           handleDelete={this.handleDelete}
           handleEdit={this.handleEdit}
           handleAddSubtask={this.handleAddSubtask}
+          parentItem={this.state.parentItem}
+          addSubtask={this.state.addSubtask}
         />
       </div>
     );

@@ -12,13 +12,16 @@ export default class TodoInput extends Component {
       clearList,
       handleDelete,
       handleEdit,
+      handleAddSubtask,
+      parentItem,
+      addSubtask,
     } = this.props;
     return (
       <div className='card mx-auto col-md-6 shadow p-3 mb-5 bg-white rounded'>
         <div className='card-body'>
           <form onSubmit={handleSubmit}>
             <div className='form-row'>
-              <div className='col-md-9'>
+              <div className='col-md-12'>
                 <label className='sr-only'>Add Task </label>
                 <div className='input-group mb-2'>
                   <input
@@ -29,11 +32,12 @@ export default class TodoInput extends Component {
                     placeholder='Add Your Task Here ...'
                     value={item}
                     onChange={handleChange}
+                    autoComplete='off'
                   />
                 </div>
               </div>
 
-              <div className='col-md-3'>
+              <div className='col-md-12'>
                 <button
                   type='submit'
                   className={
@@ -45,7 +49,12 @@ export default class TodoInput extends Component {
                   ) : (
                     <i className='fas fa-thumbtack'></i>
                   )}
-                  {editItem ? '  Edit' : '  Add'}Task
+                  {editItem
+                    ? '  Edit'
+                    : addSubtask
+                    ? ` Add subtask under ${parentItem} `
+                    : '  Add'}
+                  Task
                 </button>
               </div>
             </div>
@@ -55,6 +64,7 @@ export default class TodoInput extends Component {
             clearList={clearList}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
+            handleAddSubtask={handleAddSubtask}
           />
         </div>
       </div>
