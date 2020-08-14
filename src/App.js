@@ -26,14 +26,28 @@ class App extends Component {
     }
   }
 
+  findObjUtil = (itemsArr, Id) => {
+    let res = {};
+    for (let item of itemsArr) {
+      if (item.id === Id) {
+        this.setState({
+          item: item,
+        });
+        break;
+      }
+      if (item.subtasks.length) this.findObjUtil(item.subtasks, Id);
+    }
+    return res;
+  };
+
   handleChange = (e) => {
     this.setState({
       item: e.target.value,
     });
   };
 
-  handleAddSubtask = (id) => {
-    const selectedItems = this.state.items.find((item) => item.id === id);
+  handleAddSubtask = (id, itemArr) => {
+    const selectedItems = itemArr.find((item) => item.id === id);
 
     this.setState({
       addSubtask: true,
@@ -53,6 +67,7 @@ class App extends Component {
       newItem = this.state.items.find(
         (item) => item.id === this.state.parentId
       );
+
       newItem.subtasks = [
         ...newItem.subtasks,
         {
@@ -79,6 +94,9 @@ class App extends Component {
       id: uuid(),
       editItem: false,
       totalWidth: this.state.addSubtask ? width + 1 : width,
+      addSubtask: false,
+      parentItem: '',
+      parentId: '',
     });
   };
 

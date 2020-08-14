@@ -25,15 +25,15 @@ export default class TodoItem extends Component {
                 <td className='col-md-3'>
                   <i
                     className='fas fa-plus text-success'
-                    onClick={() => handleAddSubtask(item.id)}
+                    onClick={() => handleAddSubtask(item.id, items)}
                   ></i>
                 </td>
                 {Object.keys(item.subtasks).length ? (
                   <TodoItem
                     items={item.subtasks}
-                    handleDelete={() => handleDelete}
-                    handleEdit={() => handleEdit}
-                    handleAddSubtask={() => handleAddSubtask}
+                    handleDelete={handleDelete}
+                    handleEdit={handleEdit}
+                    handleAddSubtask={handleAddSubtask}
                   />
                 ) : null}
               </tr>
