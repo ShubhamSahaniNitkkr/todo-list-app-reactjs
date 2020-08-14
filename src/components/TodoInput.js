@@ -3,12 +3,18 @@ import TodoList from './TodoList';
 
 export default class TodoInput extends Component {
   render() {
-    const { item, handleChange, handleSubmit, editItem } = this.props;
+    const {
+      item,
+      items,
+      handleChange,
+      handleSubmit,
+      editItem,
+      clearList,
+      handleDelete,
+      handleEdit,
+    } = this.props;
     return (
-      <div className='card mx-auto col-md-8 shadow p-3 mb-5 bg-white rounded'>
-        <h2 className='card-title text-center alert alert-primary' role='alert'>
-          <i className='fas fa-edit '></i> To Do App
-        </h2>
+      <div className='card mx-auto col-md-6 shadow p-3 mb-5 bg-white rounded'>
         <div className='card-body'>
           <form onSubmit={handleSubmit}>
             <div className='form-row'>
@@ -17,9 +23,10 @@ export default class TodoInput extends Component {
                 <div className='input-group mb-2'>
                   <input
                     type='text'
+                    autoFocus
                     className='form-control'
                     id='inlineFormInputGroup'
-                    placeholder='Write Your Task Here ...'
+                    placeholder='Add Your Task Here ...'
                     value={item}
                     onChange={handleChange}
                   />
@@ -33,18 +40,21 @@ export default class TodoInput extends Component {
                     editItem ? 'btn btn-warning mb-2' : 'btn btn-success mb-2'
                   }
                 >
-                  <i className='fas fa-thumbtack'></i>{' '}
-                  {editItem ? 'Edit ' : 'Add '}Task
+                  {editItem ? (
+                    <i className='fas fa-pen'></i>
+                  ) : (
+                    <i className='fas fa-thumbtack'></i>
+                  )}
+                  {editItem ? '  Edit' : '  Add'}Task
                 </button>
               </div>
             </div>
           </form>
-
           <TodoList
-            items={this.props.items}
-            clearList={this.props.clearList}
-            handleDelete={this.props.handleDelete}
-            handleEdit={this.props.handleEdit}
+            items={items}
+            clearList={clearList}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
           />
         </div>
       </div>

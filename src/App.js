@@ -12,6 +12,15 @@ class App extends Component {
     editItem: false,
   };
 
+  componentDidMount() {
+    let items = window.localStorage.getItem('todo-items');
+    if (items !== null) {
+      this.setState({
+        items: JSON.parse(items),
+      });
+    }
+  }
+
   handleChange = (e) => {
     this.setState({
       item: e.target.value,
@@ -24,9 +33,12 @@ class App extends Component {
     const newItem = {
       id: this.state.id,
       title: this.state.item,
+      subtasks: [],
     };
 
-    const updatedItem = [...this.state.items, newItem];
+    let updatedItem = [...this.state.items, newItem];
+
+    localStorage.setItem('todo-items', JSON.stringify(updatedItem));
 
     this.setState({
       items: updatedItem,
@@ -47,9 +59,23 @@ class App extends Component {
     this.setState({
       items: filteredItems,
     });
+    localStorage.setItem('todo-items', JSON.stringify(filteredItems));
   };
 
   handleEdit = (id) => {
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+
+    const selectedItems = this.state.items.find((item) => item.id === id);
+
+    this.setState({
+      items: filteredItems,
+      item: selectedItems.title,
+      editItem: true,
+      id: id,
+    });
+  };
+
+  handleAddSubtask = (id) => {
     const filteredItems = this.state.items.filter((item) => item.id !== id);
 
     const selectedItems = this.state.items.find((item) => item.id === id);
@@ -74,6 +100,7 @@ class App extends Component {
           clearList={this.clearList}
           handleDelete={this.handleDelete}
           handleEdit={this.handleEdit}
+          handleAddSubtask={this.handleAddSubtask}
         />
       </div>
     );
