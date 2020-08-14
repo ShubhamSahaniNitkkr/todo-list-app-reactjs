@@ -5,24 +5,24 @@ export default class TodoItem extends Component {
     const { items, handleDelete, handleEdit, handleAddSubtask } = this.props;
 
     return (
-      <tr>
-        {items.length
+      <React.Fragment>
+        {items.length || Object.keys(items).length
           ? items.map((item, idx) => (
-              <React.Fragment key={idx}>
+              <tr key={idx}>
                 <td className='text-info'>{item.title ? item.title : null}</td>
-                <td>
+                <td className='col-md-3'>
                   <i
                     className='fas fa-pen text-warning'
                     onClick={() => handleEdit(item.id)}
                   ></i>
                 </td>
-                <td>
+                <td className='col-md-3'>
                   <i
                     className='fas fa-trash text-danger'
                     onClick={() => handleDelete(item.id)}
                   ></i>
                 </td>
-                <td>
+                <td className='col-md-3'>
                   <i
                     className='fas fa-plus text-success'
                     onClick={() => handleAddSubtask(item.id)}
@@ -36,10 +36,10 @@ export default class TodoItem extends Component {
                     handleAddSubtask={() => handleAddSubtask}
                   />
                 ) : null}
-              </React.Fragment>
+              </tr>
             ))
           : null}
-      </tr>
+      </React.Fragment>
     );
   }
 }

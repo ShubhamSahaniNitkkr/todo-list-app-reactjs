@@ -9,6 +9,7 @@ export default class TodoList extends Component {
       handleDelete,
       handleEdit,
       handleAddSubtask,
+      totalWidth,
     } = this.props;
 
     return (
@@ -17,7 +18,7 @@ export default class TodoList extends Component {
           <thead>
             <tr>
               <th
-                colSpan='4'
+                colSpan={totalWidth}
                 className='h2 text-center alert alert-success'
                 role='alert'
               >
@@ -37,11 +38,13 @@ export default class TodoList extends Component {
               handleDelete={handleDelete}
               handleEdit={handleEdit}
               handleAddSubtask={handleAddSubtask}
+              totalWidth={totalWidth}
+              width={totalWidth}
             />
 
             {items.length !== 0 && (
               <tr>
-                <td colSpan='4' className='text-right'>
+                <td colSpan={totalWidth} className='text-right'>
                   <button
                     type='button'
                     onClick={clearList}

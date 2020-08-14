@@ -15,6 +15,7 @@ export default class TodoInput extends Component {
       handleAddSubtask,
       parentItem,
       addSubtask,
+      totalWidth,
     } = this.props;
     return (
       <div className='card mx-auto col-md-6 shadow p-3 mb-5 bg-white rounded'>
@@ -65,6 +66,7 @@ export default class TodoInput extends Component {
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             handleAddSubtask={handleAddSubtask}
+            totalWidth={totalWidth}
           />
         </div>
       </div>

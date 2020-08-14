@@ -13,6 +13,7 @@ class App extends Component {
     addSubtask: false,
     parentItem: '',
     parentId: '',
+    totalWidth: 4,
   };
 
   componentDidMount() {
@@ -45,17 +46,21 @@ class App extends Component {
     e.preventDefault();
     if (this.state.item === '') return false;
     let newItem = {},
-      updatedItem;
+      updatedItem,
+      width = this.state.totalWidth;
 
     if (this.state.addSubtask) {
       newItem = this.state.items.find(
         (item) => item.id === this.state.parentId
       );
-      newItem.subtasks = {
-        id: uuid(),
-        title: this.state.item,
-        subtasks: [],
-      };
+      newItem.subtasks = [
+        ...newItem.subtasks,
+        {
+          id: uuid(),
+          title: this.state.item,
+          subtasks: [],
+        },
+      ];
       updatedItem = [...this.state.items];
     } else {
       newItem = {
@@ -73,6 +78,7 @@ class App extends Component {
       item: '',
       id: uuid(),
       editItem: false,
+      totalWidth: this.state.addSubtask ? width + 1 : width,
     });
   };
 
@@ -110,6 +116,12 @@ class App extends Component {
     });
   };
 
+  setTotalWidth = (width) => {
+    this.setState({
+      totalWidth: width,
+    });
+  };
+
   render() {
     return (
       <div className='container py-5'>
@@ -125,6 +137,8 @@ class App extends Component {
           handleAddSubtask={this.handleAddSubtask}
           parentItem={this.state.parentItem}
           addSubtask={this.state.addSubtask}
+          totalWidth={this.state.totalWidth}
+          setTotalWidth={this.setTotalWidth}
         />
       </div>
     );
