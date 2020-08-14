@@ -2,26 +2,14 @@ import React, { Component } from 'react';
 import TodoItem from './TodoItem';
 
 export default class TodoList extends Component {
-  renderBody = (items) => {
-    console.log(items, 'ite');
-    let AllItems = items.map((item, idx) => {
-      return (
-        <React.Fragment>
-          <TodoItem
-            key={`${item.id}-${idx}`}
-            title={item.title}
-            handleDelete={() => this.props.handleDelete(item.id)}
-            handleEdit={() => this.props.handleEdit(item.id)}
-            handleAddSubtask={() => this.props.handleAddSubtask(item.id)}
-          />
-        </React.Fragment>
-      );
-    });
-    return AllItems;
-  };
-
   render() {
-    const { items, clearList } = this.props;
+    const {
+      items,
+      clearList,
+      handleDelete,
+      handleEdit,
+      handleAddSubtask,
+    } = this.props;
 
     return (
       <React.Fragment>
@@ -44,7 +32,12 @@ export default class TodoList extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.renderBody(items)}
+            <TodoItem
+              items={items}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+              handleAddSubtask={handleAddSubtask}
+            />
 
             {items.length !== 0 && (
               <tr>
