@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import TodoInput from './components/TodoInput';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import uuid from 'uuid';
