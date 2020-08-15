@@ -34,7 +34,6 @@ class App extends Component {
 
   handleAddSubtask = (id, itemArr) => {
     const selectedItems = itemArr.find((item) => item.id === id);
-
     this.setState({
       addSubtask: true,
       parentItem: selectedItems.title,
@@ -47,7 +46,7 @@ class App extends Component {
       if (item.id === parentId) {
         if (action === 'delete') {
           delete itemArr[idx];
-        } else {
+        } else if (action === 'add') {
           item.subtasks = [
             ...item.subtasks,
             {
@@ -56,6 +55,15 @@ class App extends Component {
               subtasks: [],
             },
           ];
+        } else if (action === 'setEditText') {
+          this.setState({
+            item: item.title,
+            editItem: true,
+            id: parentId,
+          });
+        } else if (action === 'edit') {
+          console.log(item.title, this.state.item, 'man');
+          item.title = this.state.item;
         }
       }
       if (item.subtasks.length)
@@ -72,6 +80,9 @@ class App extends Component {
 
     if (this.state.addSubtask) {
       this.updateObjUtil(this.state.items, this.state.parentId, 'add');
+      updatedItem = [...this.state.items];
+    } else if (this.state.editItem) {
+      this.updateObjUtil(this.state.items, this.state.id, 'edit');
       updatedItem = [...this.state.items];
     } else {
       newItem = {
@@ -123,15 +134,7 @@ class App extends Component {
   };
 
   handleEdit = (id) => {
-    const filteredItems = this.state.items.filter((item) => item.id !== id);
-    const selectedItems = this.state.items.find((item) => item.id === id);
-
-    this.setState({
-      items: filteredItems,
-      item: selectedItems.title,
-      editItem: true,
-      id: id,
-    });
+    this.updateObjUtil(this.state.items, id, 'setEditText');
   };
 
   setTotalWidth = (width) => {
