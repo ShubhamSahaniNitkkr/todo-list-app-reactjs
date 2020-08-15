@@ -9,20 +9,22 @@ export default class TodoItem extends Component {
         {items.length || Object.keys(items).length
           ? items.map((item, idx) => (
               <tr key={idx}>
-                <td className='text-info'>{item.title ? item.title : null}</td>
-                <td className=''>
+                <td className='col-md-3 text-info'>
+                  {item.title ? item.title : null}
+                </td>
+                <td className='col-md-3'>
                   <i
                     className='fas fa-pen text-warning'
                     onClick={() => handleEdit(item.id)}
                   ></i>
                 </td>
-                <td className=''>
+                <td className='col-md-3'>
                   <i
                     className='fas fa-trash text-danger'
                     onClick={() => handleDelete(item.id)}
                   ></i>
                 </td>
-                <td className=''>
+                <td className='col-md-3'>
                   <i
                     className='fas fa-plus text-success'
                     onClick={() => handleAddSubtask(item.id, items)}

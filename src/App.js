@@ -22,22 +22,9 @@ class App extends Component {
       this.setState({
         items: JSON.parse(items),
       });
+      console.log('onload', JSON.parse(items));
     }
   }
-
-  findObjUtil = (itemsArr, Id) => {
-    let res = {};
-    for (let item of itemsArr) {
-      if (item.id === Id) {
-        this.setState({
-          item: item,
-        });
-        break;
-      }
-      if (item.subtasks.length) this.findObjUtil(item.subtasks, Id);
-    }
-    return res;
-  };
 
   handleChange = (e) => {
     this.setState({
@@ -55,19 +42,24 @@ class App extends Component {
     });
   };
 
-  updateObjUtil = (itemArr, parentId) => {
-    itemArr.map((item) => {
+  updateObjUtil = (itemArr, parentId, action) => {
+    itemArr.map((item, idx) => {
       if (item.id === parentId) {
-        item.subtasks = [
-          ...item.subtasks,
-          {
-            id: uuid(),
-            title: this.state.item,
-            subtasks: [],
-          },
-        ];
+        if (action === 'delete') {
+          delete itemArr[idx];
+        } else {
+          item.subtasks = [
+            ...item.subtasks,
+            {
+              id: uuid(),
+              title: this.state.item,
+              subtasks: [],
+            },
+          ];
+        }
       }
-      if (item.subtasks.length) this.updateObjUtil(item.subtasks, parentId);
+      if (item.subtasks.length)
+        this.updateObjUtil(item.subtasks, parentId, action);
     });
   };
 
@@ -79,8 +71,7 @@ class App extends Component {
       width = this.state.totalWidth;
 
     if (this.state.addSubtask) {
-      this.updateObjUtil(this.state.items, this.state.parentId);
-
+      this.updateObjUtil(this.state.items, this.state.parentId, 'add');
       updatedItem = [...this.state.items];
     } else {
       newItem = {
@@ -119,7 +110,12 @@ class App extends Component {
   };
 
   handleDelete = (id) => {
-    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    let filteredItems = this.state.items.filter((item) => item.id !== id);
+    if (filteredItems.length === this.state.items.length) {
+      this.updateObjUtil(this.state.items, id, 'delete');
+      filteredItems = [...this.state.items];
+    }
+
     this.setState({
       items: filteredItems,
     });
@@ -128,7 +124,6 @@ class App extends Component {
 
   handleEdit = (id) => {
     const filteredItems = this.state.items.filter((item) => item.id !== id);
-
     const selectedItems = this.state.items.find((item) => item.id === id);
 
     this.setState({
@@ -161,7 +156,6 @@ class App extends Component {
           parentItem={this.state.parentItem}
           addSubtask={this.state.addSubtask}
           totalWidth={this.state.totalWidth}
-          setTotalWidth={this.setTotalWidth}
         />
       </div>
     );
