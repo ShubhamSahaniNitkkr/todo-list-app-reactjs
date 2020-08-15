@@ -18,7 +18,10 @@ export default class TodoInput extends Component {
       totalWidth,
     } = this.props;
     return (
-      <div className='card mx-auto col-md-6 shadow p-3 mb-5 bg-white rounded'>
+      <div
+        className='card mx-auto col-md-12 shadow p-3 mb-5 bg-white rounded'
+        style={{ overflowX: 'scroll' }}
+      >
         <div className='card-body'>
           <form onSubmit={handleSubmit}>
             <div className='form-row'>
@@ -34,6 +37,7 @@ export default class TodoInput extends Component {
                     value={item}
                     onChange={handleChange}
                     autoComplete='off'
+                    required
                   />
                 </div>
               </div>

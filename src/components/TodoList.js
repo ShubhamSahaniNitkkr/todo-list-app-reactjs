@@ -18,7 +18,7 @@ export default class TodoList extends Component {
           <thead>
             <tr>
               <th
-                colSpan={totalWidth}
+                colSpan='4'
                 className='h2 text-center alert alert-success'
                 role='alert'
               >
@@ -44,7 +44,7 @@ export default class TodoList extends Component {
 
             {items.length !== 0 && (
               <tr>
-                <td colSpan={totalWidth} className='text-right'>
+                <td colSpan='4' className='text-right'>
                   <button
                     type='button'
                     onClick={clearList}

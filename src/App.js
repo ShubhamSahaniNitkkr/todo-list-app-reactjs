@@ -22,7 +22,6 @@ class App extends Component {
       this.setState({
         items: JSON.parse(items),
       });
-      console.log(JSON.parse(items));
     }
   }
 
@@ -56,6 +55,22 @@ class App extends Component {
     });
   };
 
+  updateObjUtil = (itemArr, parentId) => {
+    itemArr.map((item) => {
+      if (item.id === parentId) {
+        item.subtasks = [
+          ...item.subtasks,
+          {
+            id: uuid(),
+            title: this.state.item,
+            subtasks: [],
+          },
+        ];
+      }
+      if (item.subtasks.length) this.updateObjUtil(item.subtasks, parentId);
+    });
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.item === '') return false;
@@ -64,18 +79,8 @@ class App extends Component {
       width = this.state.totalWidth;
 
     if (this.state.addSubtask) {
-      newItem = this.state.items.find(
-        (item) => item.id === this.state.parentId
-      );
+      this.updateObjUtil(this.state.items, this.state.parentId);
 
-      newItem.subtasks = [
-        ...newItem.subtasks,
-        {
-          id: uuid(),
-          title: this.state.item,
-          subtasks: [],
-        },
-      ];
       updatedItem = [...this.state.items];
     } else {
       newItem = {
