@@ -40,7 +40,7 @@ class App extends Component {
   };
 
   updateObjUtil = (itemArr, parentId, action) => {
-    itemArr.map((item, idx) => {
+    itemArr.forEach((item, idx) => {
       if (item.id === parentId) {
         if (action === 'delete') {
           delete itemArr[idx];
