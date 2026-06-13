@@ -2,7 +2,8 @@
 
 > A nested todo app with subtasks and browser persistence — learn React state and hierarchical data without a backend.
 
-![Screenshot](./screen_view.png)
+<img width="2234" height="1166" alt="image" src="https://github.com/user-attachments/assets/f2bdad66-69f0-4c7c-971f-34cd37e49102" />
+
 
 ## Purpose
 
