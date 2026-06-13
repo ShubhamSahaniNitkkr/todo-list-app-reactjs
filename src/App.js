@@ -21,7 +21,6 @@ class App extends Component {
       this.setState({
         items: JSON.parse(items),
       });
-      console.log('onload', JSON.parse(items));
     }
   }
 
@@ -61,7 +60,6 @@ class App extends Component {
             id: parentId,
           });
         } else if (action === 'edit') {
-          console.log(item.title, this.state.item, 'man');
           item.title = this.state.item;
         }
       }
