@@ -29,7 +29,7 @@ npm install && npm run dev
 
 ## Live Demo
 
-[https://shubhamsahaniNitkkr.github.io/old-basic-projects/projects/todo-list-app-reactjs/](https://shubhamsahaniNitkkr.github.io/old-basic-projects/projects/todo-list-app-reactjs/)
+[https://shubhamsahaniNitkkr.github.io/todo-list-app-reactjs/](https://shubhamsahaniNitkkr.github.io/todo-list-app-reactjs/)
 
 
 ## Performance & UI
