@@ -1,7 +1,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 img { max-width: 100%; height: auto; }
-body { overflow-x: hidden; }
-@media (max-width: 768px) { .container { padding: 0 12px; } }
+body { overflow-x: hidden; background: #f4f6f8; }
 
 @font-face {
   font-family: googleFont;
@@ -17,8 +16,32 @@ code {
   font-family: googleFont;
 }
 
-i {
-  cursor: pointer;
+i { cursor: pointer; }
+
+.todo-card {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+}
+
+.todo-task-cell {
+  word-break: break-word;
+  min-width: 140px;
+}
+
+.todo-action-cell {
+  width: 56px;
+  white-space: nowrap;
+  vertical-align: middle !important;
+}
+
+.todo-subtask-row {
+  background-color: rgba(0, 123, 255, 0.04);
+}
+
+.todo-table-wrap {
+  border-radius: 0.25rem;
 }
 
 @media (max-width: 768px) {
@@ -33,15 +56,19 @@ i {
 
   .table th,
   .table td {
-    padding: 0.5rem;
+    padding: 0.5rem 0.35rem;
   }
 
-  .card {
-    overflow-x: auto;
+  .todo-action-cell {
+    width: 44px;
   }
 
-  .btn {
+  .btn-success.mb-2,
+  .btn-warning.mb-2 {
     width: 100%;
-    margin-bottom: 0.5rem;
+  }
+
+  header .h2 {
+    font-size: 1.35rem;
   }
 }

@@ -14,7 +14,8 @@ export default class TodoList extends Component {
 
     return (
       <React.Fragment>
-        <table className='table table-bordered col-md-12 mx-auto table-striped table-hover mt-5'>
+        <div className='table-responsive todo-table-wrap mt-4'>
+        <table className='table table-bordered col-md-12 mx-auto table-striped table-hover mb-0'>
           <thead>
             <tr>
               <th
@@ -58,6 +59,7 @@ export default class TodoList extends Component {
             )}
           </tbody>
         </table>
+        </div>
       </React.Fragment>
     );
   }

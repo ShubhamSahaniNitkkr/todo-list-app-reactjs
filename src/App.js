@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TodoInput from './components/TodoInput';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 class App extends Component {
   state = {
@@ -142,7 +142,16 @@ class App extends Component {
 
   render() {
     return (
-      <div className='container py-5'>
+      <div className='container py-4 py-md-5'>
+        <header className='text-center mb-4'>
+          <h1 className='h2 text-success mb-2'>
+            <i className='fas fa-clipboard-check mr-2'></i>
+            Daily Todo List
+          </h1>
+          <p className='text-muted mb-0'>
+            Nested tasks with subtasks — saved automatically in your browser
+          </p>
+        </header>
         <TodoInput
           item={this.state.item}
           items={this.state.items}

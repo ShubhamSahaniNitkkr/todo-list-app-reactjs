@@ -27,8 +27,6 @@ A nested todo app with subtasks and browser persistence — learn React state an
 npm install && npm run dev
 ```
 
-> On Node 17+, if build fails: `export NODE_OPTIONS=--openssl-legacy-provider`
-
 ## Live Demo
 
 [https://shubhamsahaniNitkkr.github.io/old-basic-projects/projects/todo-list-app-reactjs/](https://shubhamsahaniNitkkr.github.io/old-basic-projects/projects/todo-list-app-reactjs/)
